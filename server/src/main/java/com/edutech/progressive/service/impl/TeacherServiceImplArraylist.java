@@ -5,24 +5,28 @@ import java.util.List;
 
 import com.edutech.progressive.entity.Teacher;
 
+import java.util.*;
+
 public class TeacherServiceImplArraylist {
+    private static List<Teacher> teacherList = new ArrayList<>();
 
     public List<Teacher> getAllTeachers() {
-        // Returns an empty list of teachers.
-        return new ArrayList<>();
+        return teacherList;
     }
 
     public Integer addTeacher(Teacher teacher) {
-        // Returns -1, no teacher is actually added.
-        return -1;
+        teacherList.add(teacher);
+        return teacherList.size();
     }
 
     public List<Teacher> getTeacherSortedByExperience() {
-        // Returns an empty list of teachers.
-        return new ArrayList<>();
+        List<Teacher> sortedList = new ArrayList<>(teacherList);
+        Collections.sort(sortedList); // Uses Teacher's compareTo
+        return sortedList;
     }
 
     public void emptyArrayList() {
-        // Does nothing (method body is empty).
+        teacherList = new ArrayList<>();
     }
 }
+

@@ -5,24 +5,27 @@ import java.util.List;
 
 import com.edutech.progressive.entity.Student;
 
+import java.util.*;
+
 public class StudentServiceImplArraylist {
+    private static List<Student> studentList = new ArrayList<>();
 
     public List<Student> getAllStudents() {
-        // Returns an empty list of students.
-        return new ArrayList<>();
+        return studentList;
     }
 
     public Integer addStudent(Student student) {
-        // Returns -1, no student is actually added.
-        return -1;
+        studentList.add(student);
+        return studentList.size();
     }
 
-    public List<Student> getAllStudentsSortedByName() {
-        // Returns an empty list of students.
-        return new ArrayList<>();
+    public List<Student> getAllStudentSortedByName() {
+        List<Student> sortedList = new ArrayList<>(studentList);
+        Collections.sort(sortedList); // Uses Student's compareTo
+        return sortedList;
     }
 
     public void emptyArrayList() {
-        // Does nothing (method body is empty).
+        studentList = new ArrayList<>();
     }
 }
