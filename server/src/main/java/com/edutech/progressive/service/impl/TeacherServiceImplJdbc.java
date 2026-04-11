@@ -1,7 +1,9 @@
 package com.edutech.progressive.service.impl;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+
 import com.edutech.progressive.dao.TeacherDAO;
 import com.edutech.progressive.entity.Teacher;
 import com.edutech.progressive.service.TeacherService;
@@ -10,62 +12,56 @@ public class TeacherServiceImplJdbc implements TeacherService {
 
     private TeacherDAO teacherDAO;
 
-    // Constructor to initialize the DAO
     public TeacherServiceImplJdbc(TeacherDAO teacherDAO) {
         this.teacherDAO = teacherDAO;
     }
 
     @Override
-    public List<Teacher> getAllTeachers() throws Exception {
+    public List<Teacher> getAllTeachers() {
         try {
             return teacherDAO.getAllTeachers();
         } catch (SQLException e) {
-            throw new Exception("Error occurred while fetching all teachers.", e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Teacher getTeacherById(int teacherId) throws Exception {
+    public Integer addTeacher(Teacher teacher) {
         try {
-            return teacherDAO.getTeacherById(teacherId);
+            int id = teacherDAO.addTeacher(teacher);
+            teacher.setTeacherId(id);
+            return id;
         } catch (SQLException e) {
-            throw new Exception("Error occurred while fetching teacher with ID: " + teacherId, e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Integer addTeacher(Teacher teacher) throws Exception {
+    public List<Teacher> getTeacherSortedByExperience() {
         try {
-            return teacherDAO.addTeacher(teacher);
+            List<Teacher> list = teacherDAO.getAllTeachers();
+            Collections.sort(list);
+            return list;
         } catch (SQLException e) {
-            throw new Exception("Error occurred while adding teacher: " + teacher.getFullName(), e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void updateTeacher(Teacher teacher) throws Exception {
+    public void updateTeacher(Teacher teacher) {
         try {
             teacherDAO.updateTeacher(teacher);
         } catch (SQLException e) {
-            throw new Exception("Error occurred while updating teacher with ID: " + teacher.getTeacherId(), e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void deleteTeacher(int teacherId) throws Exception {
+    public void deleteTeacher(int teacherId) {
         try {
             teacherDAO.deleteTeacher(teacherId);
         } catch (SQLException e) {
-            throw new Exception("Error occurred while deleting teacher with ID: " + teacherId, e);
-        }
-    }
-
-    @Override
-    public List<Teacher> getTeacherSortedByExperience() throws Exception {
-        try {
-            return teacherDAO.getTeacherSortedByExperience();
-        } catch (Exception e) {
-            throw new Exception("Error occurred while fetching teachers sorted by experience.", e);
+            throw new RuntimeException(e);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.edutech.progressive.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import com.edutech.progressive.dao.CourseDAO;
 import com.edutech.progressive.entity.Course;
 import com.edutech.progressive.service.CourseService;
@@ -15,47 +16,47 @@ public class CourseServiceImplJdbc implements CourseService {
     }
 
     @Override
-    public List<Course> getAllCourses() throws Exception {
+    public List<Course> getAllCourses() {
         try {
             return courseDAO.getAllCourses();
         } catch (SQLException e) {
-            throw new Exception("Error occurred while fetching all courses", e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Course getCourseById(int courseId) throws Exception {
+    public Course getCourseById(int courseId) {
         try {
             return courseDAO.getCourseById(courseId);
         } catch (SQLException e) {
-            throw new Exception("Error occurred while fetching course with ID: " + courseId, e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Integer addCourse(Course course) throws Exception {
+    public Integer addCourse(Course course) {
         try {
             return courseDAO.addCourse(course);
         } catch (SQLException e) {
-            throw new Exception("Error occurred while adding course: " + course.getCourseName(), e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void updateCourse(Course course) throws Exception {
+    public void updateCourse(Course course) {
         try {
             courseDAO.updateCourse(course);
         } catch (SQLException e) {
-            throw new Exception("Error occurred while updating course ID: " + course.getCourseId(), e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void deleteCourse(int courseId) throws Exception {
+    public void deleteCourse(int courseId) {
         try {
             courseDAO.deleteCourse(courseId);
         } catch (SQLException e) {
-            throw new Exception("Error occurred while deleting course ID: " + courseId, e);
+            throw new RuntimeException(e);
         }
     }
 }
